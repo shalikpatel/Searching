@@ -1,0 +1,45 @@
+/*
+Find the missing element from  an ordered array A[ ], 
+consisting of N elements representing an Arithmetic Progression (AP) .
+*/
+
+#include <iostream>
+using namespace std;
+
+int missingTerm(int arr[], int l, int r, int d) {
+    
+    if(l >= r) {
+        if(arr[l] == arr[0] + l * d) {
+            return arr[0] + (l+1) * d;
+        } else {
+            return arr[0] + l*d;
+        }
+    }
+    int mid = (l + r) / 2;
+    if(arr[mid] == arr[0] + mid * d) {
+        return missingTerm(arr, mid+1, r, d);
+    } else {
+        return missingTerm(arr, l, mid-1, d);
+    }
+}
+
+int main() {
+    int t;
+    cin >> t;
+    while(t--) {
+        int n;
+        cin >> n;
+        int arr[n];
+        for(int i = 0; i < n; i++) {
+            cin >> arr[i];
+        }
+        int d;
+        if(n > 2) {
+            d = min(arr[1] - arr[0], arr[2] - arr[1]);
+        } else {
+            d = (arr[1] - arr[0]) / 2;
+        }
+        cout << missingTerm(arr, 0, n-1, d) << endl;
+    }
+	return 0;
+}
