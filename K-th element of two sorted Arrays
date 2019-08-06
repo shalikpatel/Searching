@@ -1,0 +1,48 @@
+/*
+Given two sorted arrays A and B of size M and N respectively and an element k. 
+The task is to find the element that would be at the k’th position of the final sorted array.
+*/
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int kthElement(int n, int m, int k, int a[], int b[])
+{
+    int count = 0;
+    int i = 0; 
+    int j = 0;
+    while(count < k-1) {
+        if(a[i] < b[j]) {
+            i++;
+        } else {
+            j++;
+        }
+        count++;
+    }
+    
+    return min(a[i], b[j]);
+}
+
+int main()
+{
+    int n;
+    int m;
+    int k;
+    cin >> n;
+    cin >> m;
+    cin >>k;
+    int a[n+1];
+    int b[m+1];
+    for(int i = 0; i < n; i++) {
+        cin >> a[i];
+    }
+    for(int i = 0; i< m; i++) {
+        cin >> b[i];
+    }
+    a[n] = INT_MAX;
+    b[m] = INT_MAX;
+    
+    cout << kthElement(n, m, k, a, b) << endl;
+
+	return 0;
+}
